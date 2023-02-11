@@ -9,7 +9,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:todo_app/app/core/presentation/notifications/local_notifications.dart';
+import 'package:todo_app/app/core/presentation/notifications/messaging_background.dart';
+import 'package:todo_app/app/core/presentation/notifications/push_notifications.dart';
+import 'package:todo_app/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -26,9 +31,17 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+  WidgetsFlutterBinding.ensureInitialized();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await LocalNotfications().initialize();
+  PushNotifications();
+  await PushNotifications().initialize(firebaseMessagingBackgroundHandler);
 
   await runZonedGuarded(
     () async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/app/todo/model/todo_entity.dart';
+import 'package:todo_app/app/features/todo/domain/entities/task_entity.dart';
 
 class TodoItem extends StatelessWidget {
   const TodoItem({
@@ -8,7 +8,7 @@ class TodoItem extends StatelessWidget {
     required this.onChanged,
   });
 
-  final TodoEntity item;
+  final TaskEntity item;
   final Function(bool) onChanged;
 
   @override
@@ -17,8 +17,20 @@ class TodoItem extends StatelessWidget {
       leading: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(item.taskName),
-          Text('${item.taskDate}*${item.priorityLevel}'),
+          Text(
+            item.taskName ?? '',
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            item.description ?? '',
+            style: const TextStyle(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text('${item.taskDate} * ${item.priorityLevel}'),
         ],
       ),
       trailing: Checkbox(
