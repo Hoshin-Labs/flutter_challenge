@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:132180493407:android:76195772f939b2c04e87ea",
         "android_client_info": {
-          "package_name": "com.example.verygoodcore.todo_app"
+          "package_name": "com.example.verygoodcore.todo_app.dev"
         }
       },
       "oauth_client": [
